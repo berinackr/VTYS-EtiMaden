@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:etimaden/operator_home_screen.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -100,6 +101,10 @@ class _LoginState extends State<Login> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         // Navigate the user to the Home page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => OperatorHome()),
+                        );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Lütfen alanları doldurun')),
