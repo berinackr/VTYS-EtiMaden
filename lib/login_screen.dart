@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:etimaden/operator_home_screen.dart';
+import 'package:etimaden/yonetici_home_screen.dart';
+import 'package:etimaden/yonetici_home_screen.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -103,7 +105,7 @@ class _LoginState extends State<Login> {
                         // Navigate the user to the Home page
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => OperatorHome()),
+                          MaterialPageRoute(builder: (context) => YoneticiHome()),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

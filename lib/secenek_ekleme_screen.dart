@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sql_conn/sql_conn.dart';
 
 class SecenekScreen extends StatelessWidget {
   @override

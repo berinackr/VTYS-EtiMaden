@@ -1,12 +1,10 @@
-import 'package:etimaden/nakil_yonetici_screen.dart';
-import 'package:etimaden/yurtdısı_yonetici_screen.dart';
-import 'package:etimaden/yurtici_yonetici_screen.dart';
 import 'package:flutter/material.dart';
 
-class SevklerScreen extends StatelessWidget {
+class SevklerScreenYonetici extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(251, 255, 207, 1),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -68,6 +66,44 @@ class SevklerScreen extends StatelessWidget {
                 ),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    // Handle Ekle (Add) button click
+                    print('Ekle button clicked');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromRGBO(204, 144, 0, 1), // Buton rengi
+                    onPrimary: Colors.white, // Buton içindeki yazı rengi
+                  ),
+                  child: Text('Ekle'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Handle Sil (Delete) button click
+                    print('Sil button clicked');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromRGBO(204, 144, 0, 1), // Buton rengi
+                    onPrimary: Colors.white, // Buton içindeki yazı rengi
+                  ),
+                  child: Text('Sil'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Handle Güncelle (Update) button click
+                    print('Güncelle button clicked');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromRGBO(204, 144, 0, 1), // Buton rengi
+                    onPrimary: Colors.white, // Buton içindeki yazı rengi
+                  ),
+                  child: Text('Güncelle'),
+                ),
+              ],
+            ),
             SevklerListesi(),
           ],
         ),
@@ -76,14 +112,29 @@ class SevklerScreen extends StatelessWidget {
   }
 }
 
-class SevklerListesi extends StatelessWidget {
+class SevklerListesi extends StatefulWidget {
+  @override
+  _SevklerListesiState createState() => _SevklerListesiState();
+}
+
+class _SevklerListesiState extends State<SevklerListesi> {
+  int? selectedSevkIndex;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
         itemCount: 15,
         itemBuilder: (context, index) {
-          return SevkKarti();
+          return SevkKarti(
+            index: index,
+            isSelected: selectedSevkIndex == index,
+            onSelect: () {
+              setState(() {
+                selectedSevkIndex = index;
+              });
+            },
+          );
         },
       ),
     );
@@ -91,18 +142,28 @@ class SevklerListesi extends StatelessWidget {
 }
 
 class SevkKarti extends StatelessWidget {
+  final int index;
+  final bool isSelected;
+  final VoidCallback onSelect;
+
+  const SevkKarti({
+    Key? key,
+    required this.index,
+    required this.isSelected,
+    required this.onSelect,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(8.0),
+      color: isSelected ? Color.fromRGBO(204, 144, 0, 1) : null,
       child: ListTile(
-        title: Text('Sevk Başlığı'),
-        subtitle: Text('Sevk Detayları'),
+        title: Text('Sevk Başlığı $index'),
+        subtitle: Text('Sevk Detayları $index'),
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => nakilPage()),
-          );
+          onSelect();
+          // You can navigate or perform any other action here
         },
       ),
     );
